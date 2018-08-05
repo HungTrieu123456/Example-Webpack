@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack= require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const VENDOR_LIBS = [
     "jquery",
@@ -33,13 +34,21 @@ const config = {
                 exclude: '/node_modules/'
             },
             {
-                loader: 'file-loader',
-                test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.woff2$|\.eot$|\.ttf$|\.wav$|\.mp3$|\.ico$/
+                use: ExtractTextPlugin.extract({
+                    use: 'css-loader',
+                    fallback: 'style-loader'
+                }),
+                test: /\.css$/
+            },
+            {
+                test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.woff2$|\.eot$|\.ttf$|\.wav$|\.mp3$|\.ico$/,
+                loader: 'file-loader?name=[name].[ext]'
             }
             
         ]
     },
     plugins: [
+        new ExtractTextPlugin('style.css'),
         new webpack.ProvidePlugin({
             '$': 'jquery',
             'jQuery': 'jquery',
@@ -47,7 +56,8 @@ const config = {
             'window.jQuery': 'jquery'
         }),
         new HtmlWebpackPlugin({
-            template: 'index.html'
+            template: 'index.html',
+            favicon: 'favicon.ico'
         })
     ],
     devServer,

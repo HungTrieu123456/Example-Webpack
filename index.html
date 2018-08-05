@@ -4,15 +4,31 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
-    <title>NewsCar</title>
+    <title>Test Webpack</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/">
+    <link rel="stylesheet" href="./public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./public/carDetail/css/lightgallery.css">
 </head>
 <body>
     <noscript>
         Bật chế độ chấp nhận javascript để sử dụng app.
     </noscript>
     <div id="root"></div>
-    <!-- <script src="dist/bundle.js"></script> -->
+    <script src="./public/js/jquery-3.3.1.js"></script>
+    <script src="./public/js/bootstrap.min.js"></script>
+    <script src="./public/carDetail/js/lightgallery-all.min.js"></script>
+    <script src="./public/carDetail/js/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript">
+        $(window).on('click', (e) => {
+            if (!$(e.target).hasClass('img-responsive')) {
+                $('#lightgallery').lightGallery();
+            }
+
+        });
+        $(window).on('load', (e) => {
+            $('#lightgallery').lightGallery();
+        });
+    </script>
 </body>
 </html>
